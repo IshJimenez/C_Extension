@@ -1,2 +1,1 @@
-# FinApp3
-Folder for 3rd upcoming financial app
+Making into folder for a chrome extension instead.
