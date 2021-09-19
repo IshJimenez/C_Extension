@@ -53,10 +53,16 @@ ulEL.innerHTML = listItems
 
 const recipient = "James"
 
+const sender = "Kaiba"
+
 // Refactor the email string to use template strings
-let email = "Hey " + recipient + "! How is it going? Cheers"
+let email = "Hey " + recipient + "! How is it going? Cheers "
 
+// With the ` you have the ability to be able to seperate on seperate lines
+email = `Hey ${recipient},
 
-email = `Hey ${recipient} thats my million dollar check!!`
+thats my million dollar check,
+
+yells ${sender}!!`
 console.log(email)
 
