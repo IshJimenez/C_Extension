@@ -1,9 +1,27 @@
 // chrome://extensions/
-let myLeads = []
+let myLeads = `["www.sample.com"]`
+
+// Turns the myLeads string into an array
+myLeads = JSON.parse(myLeads)
+
+myLeads.push("www.sample2.com")
+
+// Turns the array into a string again
+myLeads = JSON.stringify(myLeads)
+
+console.log(typeof myLeads)
+
 const inputEL = document.getElementById("inputEl")
 const inputBtnn = document.getElementById("inputBtn")
 
 const ulEL = document.getElementById("ulEl")
+
+// localStorage.setItem("hisName", "Yugi")
+
+// let name = localStorage.getItem("hisName")
+// console.log(name)
+
+// localStorage.clear()
 
 inputBtnn.addEventListener("click", function(){
     myLeads.push(inputEL.value)
