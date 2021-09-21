@@ -1,20 +1,28 @@
 // chrome://extensions/
-let myLeads = `["www.sample.com"]`
+let myLeads = []
 
 // Turns the myLeads string into an array
-myLeads = JSON.parse(myLeads)
-
-myLeads.push("www.sample2.com")
+// myLeads = JSON.parse(myLeads)
 
 // Turns the array into a string again
-myLeads = JSON.stringify(myLeads)
+// myLeads = JSON.stringify(myLeads)
 
-console.log(typeof myLeads)
+// localStorage.clear()
 
 const inputEL = document.getElementById("inputEl")
 const inputBtnn = document.getElementById("inputBtn")
+const delBtnn = document.getElementById("delBtn")
 
 const ulEL = document.getElementById("ulEl")
+
+const leadsLocalStorage = JSON.parse (localStorage.getItem("myLeads"))
+
+if(leadsLocalStorage) {
+    myLeads = leadsLocalStorage
+    renderLeads()
+}
+
+console.log(leadsLocalStorage)
 
 // localStorage.setItem("hisName", "Yugi")
 
@@ -27,8 +35,18 @@ inputBtnn.addEventListener("click", function(){
     myLeads.push(inputEL.value)
     console.log(myLeads)
     inputEL.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads))
     renderLeads()
 
+})
+
+console.log( localStorage.getItem("myLeads") )
+
+delBtnn.addEventListener("click", function(){
+    console.log("del fool")
+    localStorage.clear()
+    myLeads = []
+    renderLeads()
 })
 
 function renderLeads() {
