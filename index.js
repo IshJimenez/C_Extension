@@ -12,52 +12,26 @@ let myLeads = []
 const inputEL = document.getElementById("inputEl")
 const inputBtnn = document.getElementById("inputBtn")
 const delBtnn = document.getElementById("delBtn")
+const tabBtnn = document.getElementById("tabBtn")
 
 const ulEL = document.getElementById("ulEl")
 
 const leadsLocalStorage = JSON.parse (localStorage.getItem("myLeads"))
 
 if(leadsLocalStorage) {
-    myLeads = leadsLocalStorage
-    renderLeads()
+        myLeads = leadsLocalStorage
+        render(myLeads)
 }
 
-console.log(leadsLocalStorage)
-
-// localStorage.setItem("hisName", "Yugi")
-
-// let name = localStorage.getItem("hisName")
-// console.log(name)
-
-// localStorage.clear()
-
-inputBtnn.addEventListener("click", function(){
-    myLeads.push(inputEL.value)
-    console.log(myLeads)
-    inputEL.value = ""
-    localStorage.setItem("myLeads", JSON.stringify(myLeads))
-    renderLeads()
-
-})
-
-console.log( localStorage.getItem("myLeads") )
-
-delBtnn.addEventListener("click", function(){
-    console.log("del fool")
-    localStorage.clear()
-    myLeads = []
-    renderLeads()
-})
-
-function renderLeads() {
+function render(leads) {
     let listItems = ""
-    for(let x = 0; x < myLeads.length; x++) {
+    for(let x = 0; x < leads.length; x++) {
         // listItems += "<li><a target='_blank' href='" + myLeads[x] + "'>" + myLeads[x] + "</a></li>"
         // Used template string downstairs instead to make it easier to read
         listItems += `
             <li>
-                <a target='_blank' href='${myLeads[x]}'>
-                ${myLeads[x]}
+                <a target='_blank' href='${leads[x]}'>
+                ${leads[x]}
                 </a>
             </li>
         `
@@ -72,34 +46,36 @@ function renderLeads() {
 ulEL.innerHTML = listItems
 }
 
+// localStorage.setItem("hisName", "Yugi")
+
+// let name = localStorage.getItem("hisName")
+// console.log(name)
+
+// localStorage.clear()
+
+inputBtnn.addEventListener("click", function(){
+        myLeads.push(inputEL.value)
+        inputEL.value = ""
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        render(myLeads)
+
+})
+
+console.log( localStorage.getItem("myLeads") )
+
+delBtnn.addEventListener("click", function(){
+        localStorage.clear()
+        myLeads = []
+        render(myLeads)
+})
+
+tabBtnn.addEventListener("click", function() {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        render(myLeads)
+    })
+})
 
 
-// let contaiN = document.getElementById("contain")
-
-// contaiN.innerHTML = "<button onclick='buy()'>BUY</button>"
-
-// contaiN.addEventListener("click", function() {
-//     console.log("Hey you just bought me oh")
-// })
-
-// function buy() {
-//     contaiN.innerHTML += "<p>Hey you just bought Me !</p>"
-// }
-
-// template strings/literals
-
-const recipient = "James"
-
-const sender = "Kaiba"
-
-// Refactor the email string to use template strings
-let email = "Hey " + recipient + "! How is it going? Cheers "
-
-// With the ` you have the ability to be able to seperate on seperate lines
-email = `Hey ${recipient},
-
-thats my million dollar check,
-
-yells ${sender}!!`
-console.log(email)
 
